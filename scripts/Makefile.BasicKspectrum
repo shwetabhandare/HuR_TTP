@@ -1,0 +1,34 @@
+POS_FILE=$(pos_file)
+NEG_FILE=$(neg_file)
+CONF_PREFIX=$(conf_prefix)
+RESULT_DIR=$(result_dir)
+
+EXTENSION=.yml
+CONF_YML=$(CONF_PREFIX)$(EXTENSION)
+RESULT_YML=$(CONF_PREFIX)_Results.yml
+
+BASIC_KSPECTRUM_SCRIPT=basic_kspectrum.py
+CREATE_CONF_SCRIPT=CreateConfFile.py
+SEQ_COUNTER_SCRIPT=seq_counter.py
+CONVERT_TO_UPPER=convertToUpper.py
+
+all: step0 step1 step2 step3
+
+.PHONY: all
+
+step0: $(POS_FILE) $(NEG_FILE)
+	mkdir -p $(RESULT_DIR)
+	python $(CONVERT_TO_UPPER) $(POS_FILE)
+	python $(CONVERT_TO_UPPER) $(NEG_FILE)
+
+step1: $(POS_FILE) $(NEG_FILE)
+	mkdir -p $(RESULT_DIR)
+	cd $(RESULT_DIR) && python ../$(SEQ_COUNTER_SCRIPT) ../$(POS_FILE) ../$(NEG_FILE)
+
+step2:
+	$(eval COMBINED_FILE_NAME := $(shell cd $(RESULT_DIR); ls *.txt))
+	@echo $(CONF_YML), $(COMBINED_FILE_NAME)
+	cd $(RESULT_DIR) && python ../$(CREATE_CONF_SCRIPT) $(COMBINED_FILE_NAME) $(CONF_PREFIX) $(CONF_YML)
+
+step3:
+	cd $(RESULT_DIR) && python ../$(BASIC_KSPECTRUM_SCRIPT) $(CONF_YML)
