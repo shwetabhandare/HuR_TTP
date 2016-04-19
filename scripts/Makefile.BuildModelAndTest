@@ -8,7 +8,7 @@ NEG_TRAIN_FILENAME=$(neg_train_file)
 NEG_TEST_FILENAME=$(neg_test_file)
 
 CONF_TRAIN_PREFIX=$(train_prefix)
-CONF_TRAIN_YML=$(CONF_TRAIN_PREFIX).yml
+CONF_TRAIN_YML=$(train_prefix).yml
 
 CONF_TEST_PREFIX=$(test_prefix)
 TRAIN_RESULTS_YML=$(CONF_TRAIN_PREFIX)_Results.yml
@@ -21,15 +21,16 @@ TEST_SPECTRUM_FILE=$(CONF_TEST_PREFIX)_kspectrum.dat
 
 PREFIX=$(rbp_prefix)
 RESULT_DIR=$(result_dir)
+
 DOMAIN_PRIME_FILE=$(CONF_TEST_PREFIX)_Prime_kspectrum.dat
 TRAIN_DOMAIN_PRIME_FILE=$(CONF_TRAIN_PREFIX)_Prime_kspectrum.dat
 TEST_DOMAIN_OUTPUT_FILE=$(CONF_TEST_PREFIX)_WithDomain_Test_kspectrum.dat
 TRAIN_DOMAIN_OUTPUT_FILE=$(CONF_TRAIN_PREFIX)_WithDomain_Train_kspectrum.dat
 
-SPLIT_SCRIPT=/projects/bhandare/workspace/scripts/SplitTrain/SplitTrainAndTest.py
-CREATE_MODEL_SCRIPT=/projects/bhandare/workspace/kernels/k-spectrum/scripts/createBestModel.py
-CREATE_CONF_SCRIPT=/projects/bhandare/workspace/PySG/scripts/k-spectrum-pipeline/CreateConfFile.py
-SEQ_COUNTER_SCRIPT=/projects/bhandare/workspace/PySG/scripts/k-spectrum-pipeline/seq_counter.py
+SPLIT_SCRIPT=SplitTrainAndTest.py
+CREATE_MODEL_SCRIPT=createBestModel.py
+CREATE_CONF_SCRIPT=CreateConfFile.py
+SEQ_COUNTER_SCRIPT=seq_counter.py
 
 
 TEST_MODEL_SCRIPT=/projects/bhandare/workspace/kernels/k-spectrum/scripts/InDomainTest.py
@@ -49,8 +50,7 @@ step0: $(POS_FILE) $(NEG_FILE)
 
 step1: $(POS_FILE) $(NEG_FILE)
 	@echo "**** STEP 1: SPLIT TRAIN/TEST ****"
-	cd $(RESULT_DIR) && python ../$(SPLIT_SCRIPT) ../$(POS_FILE) 80 ../$(POS_TRAIN_FILENAME) ../$(POS_TEST_FILENAME)
-	&& python ../$(SPLIT_SCRIPT) ../$(NEG_FILE) 80 ../$(NEG_TRAIN_FILENAME) ../$(NEG_TEST_FILENAME)
+	cd $(RESULT_DIR) && python ../$(SPLIT_SCRIPT) ../$(POS_FILE) ../$(NEG_FILE) 80 $(POS_TRAIN_FILENAME) $(NEG_TRAIN_FILENAME) $(POS_TEST_FILENAME) $(NEG_TEST_FILENAME)
 
 step2: $(POS_TRAIN_FILENAME) $(NEG_TEST_FILENAME) $(SEQ_COUNTER_SCRIPT)
 	@echo "**** STEP 2: COMBINE POS/NEG TRAIN ****"

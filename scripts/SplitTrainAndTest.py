@@ -85,6 +85,13 @@ def SplitTrainAndTest(posDataFile, negDataFile, trainPercent, posTrainFileName, 
 #Prepare and open files
 
 if __name__ == "__main__":
-	SplitTrainAndTest(posDataFile, negDataFile, trainPercent, posTrainFileName, negTrainFileName, posTestFileName, negTestFileName)
+	posDataFile = sys.argv[1]
+	negDataFile = sys.argv[2]
+	trainPercent = int(sys.argv[3])
+	posTrainDataFile = sys.argv[4]
+	negTrainDataFile = sys.argv[5]
+	posTestDataFile = sys.argv[6]
+	negTestDataFile = sys.argv[7]
+	SplitTrainAndTest(posDataFile, negDataFile, trainPercent, posTrainDataFile, negTrainDataFile, posTestDataFile, negTestDataFile)
 
 
