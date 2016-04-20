@@ -33,8 +33,8 @@ CREATE_CONF_SCRIPT=CreateConfFile.py
 SEQ_COUNTER_SCRIPT=seq_counter.py
 
 
-TEST_MODEL_SCRIPT=/projects/bhandare/workspace/kernels/k-spectrum/scripts/InDomainTest.py
-COMBINED_MODEL_SCRIPT=/projects/bhandare/workspace/scripts/WeightVector/createCombinedModel.py
+TEST_MODEL_SCRIPT=InDomainTest.py
+COMBINED_MODEL_SCRIPT=createCombinedModel.py
 
 
 all: step0 step1 step2 step3 step4 step5 step6 step7
@@ -52,13 +52,13 @@ step1: $(POS_FILE) $(NEG_FILE)
 	@echo "**** STEP 1: SPLIT TRAIN/TEST ****"
 	cd $(RESULT_DIR) && python ../$(SPLIT_SCRIPT) ../$(POS_FILE) ../$(NEG_FILE) 80 $(POS_TRAIN_FILENAME) $(NEG_TRAIN_FILENAME) $(POS_TEST_FILENAME) $(NEG_TEST_FILENAME)
 
-step2: $(POS_TRAIN_FILENAME) $(NEG_TEST_FILENAME) $(SEQ_COUNTER_SCRIPT)
+step2: $(SEQ_COUNTER_SCRIPT)
 	@echo "**** STEP 2: COMBINE POS/NEG TRAIN ****"
-	cd $(RESULT_DIR) && python ../$(SEQ_COUNTER_SCRIPT) ../$(POS_TRAIN_FILENAME) ../$(NEG_TRAIN_FILENAME)
+	cd $(RESULT_DIR) && python ../$(SEQ_COUNTER_SCRIPT) $(POS_TRAIN_FILENAME) $(NEG_TRAIN_FILENAME)
 
-step3: $(POS_TEST_FILENAME) $(NEG_TEST_FILENAME) $(SEQ_COUNTER_SCRIPT) 
+step3: $(SEQ_COUNTER_SCRIPT) 
 	@echo "**** STEP 3: COMBINE POS/NEG TEST ****"
-	cd $(RESULT_DIR) && python ../$(SEQ_COUNTER_SCRIPT) ../$(POS_TEST_FILENAME) ../$(NEG_TEST_FILENAME)
+	cd $(RESULT_DIR) && python ../$(SEQ_COUNTER_SCRIPT) $(POS_TEST_FILENAME) $(NEG_TEST_FILENAME)
 
 step4:
 	$(eval COMBINED_TRAIN_FILE_NAME := $(shell cd $(RESULT_DIR); ls *_train*CompleteSet.txt))

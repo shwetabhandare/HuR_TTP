@@ -43,7 +43,6 @@ paramsFile = confMap["output"]["paramsFile"]
 featureFile = confMap["output"]["featureFile"]
 
 
-Cs = [ 10**x for x in xrange( -10, 5 ) ]
 # trainSeqFile = sys.argv[1];
 # trainLen = int(sys.argv[2]); #equal pos/neg len
 # modelFile = sys.argv[3];
@@ -57,8 +56,13 @@ bestSuccessRate = None
 bestW = None;
 bestK1 = 0;
 bestK2 = 0;
+Cs = [ 10**x for x in xrange( -10, 5 ) ]
 K1 = [8, 9, 10, 11, 12, 13]
 K2 = [8, 9, 10, 11, 12, 13]
+
+Cs = [ 10**x for x in xrange( -10, 1 ) ]
+K1 = [8]
+K2 = [9]
 
 
 for k1 in K1:
