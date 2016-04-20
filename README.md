@@ -1,4 +1,6 @@
-# HuR_TTP This repository consists of PAR-CLIP data sets used to test HuR, and TTP on computational methods. 
+# HuR_TTP 
+
+This repository consists of PAR-CLIP data sets used to test HuR, and TTP on computational methods. 
 
 #Prerequisites:
 
