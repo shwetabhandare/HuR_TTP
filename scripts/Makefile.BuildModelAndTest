@@ -37,7 +37,8 @@ TEST_MODEL_SCRIPT=InDomainTest.py
 COMBINED_MODEL_SCRIPT=createCombinedModel.py
 
 
-all: step0 step1 step2 step3 step4 step5 step6 step7
+#all: step0 step1 step2 step3 step4 step5 step6 step7
+all: step6 step7
 
 .PHONY: all
 
