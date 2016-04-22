@@ -23,5 +23,9 @@ The data directory contains data sets that were obtained from the authors of the
 7. The directory faFromBed contains all the fasta files associated with the bedFiles. It also contains the negative set of sequences used to run the experiments.
 
 #Scripts
+1. There are two Makefiles provided Makefile.BasicKspectrum and Makefile.BuildModelAndTest. 
+2. Makefile.BasicKspectrum: The first one does a 10 fold cross validation. To use this Makefile, run it from the scripts directory as  follows:
+``` make -f Makefile.BasicKspectrum pos_file=../data/faFromBed/GSM1286117_ZFP36_clusters_stranded.fa neg_file=../data/faFromBed/NONGSM1286117_ZFP36_clusters_stranded.fa conf_prefix=TTP_Basic result_dir=TTP_Basic_Results
+```
 
 
