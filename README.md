@@ -20,5 +20,8 @@ The data directory contains data sets that were obtained from the authors of the
 4. HuR: to_ucsc.fp_0.05.filtered.hg19.elavl1_conservative.bed
 5. TTP: GSM1286117_ZFP36_clusters.bed
 6. The other bed files in the directory contain HuR specific clusters, TTP specific clusters, and clusters that are common to both HuR and TTP. These were obtained using bedtools intersect option. 
+7. The directory faFromBed contains all the fasta files associated with the bedFiles. It also contains the negative set of sequences used to run the experiments.
+
+#Scripts
 
 
